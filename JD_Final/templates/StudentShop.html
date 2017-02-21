@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- BOOTSTRAP BEGINS -->
+      <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- BOOTSTRAP ENDS -->
+
+    <!-- STYLE BEGINS -->
+    <style>
+        body {
+      padding-top: 20px;
+    }
+
+    .footer {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      margin-top: 40px;
+      border-top: 1px solid #eee;
+    }
+
+    /* Main marketing message and sign up button */
+    .jumbotron {
+      text-align: center;
+      background-color: transparent;
+    }
+    .jumbotron .btn {
+      padding: 5px 5px;
+      font-size: 12px;
+    }
+
+    /* Customize the nav-justified links to be fill the entire space of the .navbar */
+
+    .nav-justified {
+      background-color: #eee;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .nav-justified > li > a {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      margin-bottom: 0;
+      font-weight: bold;
+      color: #777;
+      text-align: center;
+      background-color: #e5e5e5; /* Old browsers */
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e5e5e5));
+      background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+      background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+      background-image:         linear-gradient(to bottom, #f5f5f5 0%,#e5e5e5 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+      background-repeat: repeat-x; /* Repeat the gradient */
+      border-bottom: 1px solid #d5d5d5;
+    }
+    .nav-justified > .active > a,
+    .nav-justified > .active > a:hover,
+    .nav-justified > .active > a:focus {
+      background-color: #ddd;
+      background-image: none;
+      -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+              box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+    }
+    .nav-justified > li:first-child > a {
+      border-radius: 5px 5px 0 0;
+    }
+    .nav-justified > li:last-child > a {
+      border-bottom: 0;
+      border-radius: 0 0 5px 5px;
+    }
+
+    @media (min-width: 768px) {
+      .nav-justified {
+        max-height: 52px;
+      }
+      .nav-justified > li > a {
+        border-right: 1px solid #d5d5d5;
+        border-left: 1px solid #fff;
+      }
+      .nav-justified > li:first-child > a {
+        border-left: 0;
+        border-radius: 5px 0 0 5px;
+      }
+      .nav-justified > li:last-child > a {
+        border-right: 0;
+        border-radius: 0 5px 5px 0;
+      }
+    }
+
+    /* Responsive: Portrait tablets and up */
+    @media screen and (min-width: 768px) {
+      /* Remove the padding we set earlier */
+      .masthead,
+      .marketing,
+      .footer {
+        padding-right: 0;
+        padding-left: 0;
+      }
+    }
+
+    .fifty {
+      width: 50px;
+    }
+
+    .dropdown-menu {
+    min-width: 0px !important;
+    }
+
+  </style>
+
+    <!-- STYLE ENDS -->
+
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Justified Nav Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="justified-nav.css" rel="stylesheet">
+
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- The justified navigation menu is meant for single line per list item.
+           Multiple lines will require custom code not provided by Bootstrap. -->
+      <form method="GET" style="padding-bottom:5px;">
+        <h3 class="text-muted">Shop for Rewards: Spend Your Jon Dollars Here!<input style="float: right;" name="logout" type="submit" class="btn btn-danger" value="Logout"></input></h3>
+        </form>
+      
+      <div class="masthead">
+        <nav>
+           <ul class="nav nav-justified">
+            <li><a href=home>Home</a></li>
+            <li><a href=team>Team</a></li>
+            <li class="active"><a href=shop>Shop</a></li>
+            <li><a href=inventory>Inventory</a></li>
+            <li><a href=request-point>Point Requests</a></li>
+            <li><a href=settings>Settings</a></li>
+          </ul>
+        </nav>
+      </div>
+<!-- NAVBAR ends here -->
+ 
+
+      <!-- Example row of columns -->
+      <div class="row">
+
+      	<div class="col-sm-4">
+        <h3>Your Dollars</h3>
+        
+        <p >Dollars available: {{DollarsAvailable}}
+        </p>   
+        
+        <p >Points available: {{PointsAvailable}}
+        </p>
+
+
+        <p >{{NotEnough}}
+        </p>
+
+        <br>
+        <br>
+
+        <h3>Team Dollars</h3>
+        <!-- These are defined but no team case isn't handled yet -->
+        <h4>{{TeamName}}</h4>
+        <p >Dollars available: {{TeamDollars}}
+        </p>   
+        
+        <p >Points available: {{TeamPoints}}
+        </p>
+
+
+        <p >{{NotEnough}}
+        </p>
+
+
+        </div>
+
+        <!-- <div class = "col-sm-8"> -->
+        
+        <form method = 'GET' action = "#">
+        <div class = "col-sm-8">
+        <h3>{{ShopTitle}}</h3>
+        </div>
+        <div class = "col-sm-4">
+            {% for reward in RewardsList1 %}        
+            <h4>{{reward.0.2}} (Cost: {{reward.0.3}} {{reward.0.6}})</h4>
+           	{% for x in reward %}            	
+            <button type="button" name="modal" class="btn {{x.5}}" data-toggle="modal" data-target="#{{x.0}}{{x.4}}" >{{x.1}}</button>
+            
+            	
+            <div class="modal fade" id="{{x.4}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        	<div class="modal-dialog">
+            	<div class="modal-content">            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Purchase</h4>
+                </div>            
+                <div class="modal-body">
+                    <p>You are about to buy:</p>
+                    <p>{{reward.0.2}} ({{reward.0.3}} {{reward.0.6}})</p>
+                    <p class="debug-url"></p>
+                </div>
+                
+                <div class="modal-footer">
+                <p style="float:left; margin-left:10px;">Your remaining dollars: {{DollarsAvailable}} </p> 
+                	<button type="submit" class="btn btn-success" value="Buy" name="buy{{reward.0.4}}">Confirm</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        	</div>
+    		</div>
+
+            <div class="modal fade" id="team{{x.4}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        	<div class="modal-dialog">
+            	<div class="modal-content">            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Team Purchase</h4>
+                </div>            
+                <div class="modal-body">
+                    <p>You are about to use <b>team dollars</b> to buy:</p>
+                    <p>{{reward.0.2}} ({{reward.0.3}} {{reward.0.6}})</p>
+                    <p class="debug-url"></p>
+                </div>
+                
+                <div class="modal-footer">
+                <div class= "row">
+                	<p style="float:left; margin-left:10px;">Team dollars remaining: {{TeamDollars}} </p> 
+                	<button  type="submit" class="btn btn-success" value="Buy" name="teambuy{{reward.1.4}}">Confirm</button>
+                    <button type="button" style="margin-right:10px;" class="btn btn-default" data-dismiss="modal">Cancel</button>                    
+                   </div>
+                </div>
+            </div>
+        	</div>
+    		</div>
+    		{% endfor %}
+            {% endfor %}
+
+		</div>
+
+		<div class = "col-sm-4">
+			{% for reward2 in RewardsList2 %}
+            <h4>{{reward2.0.2}} (Cost: {{reward2.0.3}} Points)</h4> <button type="submit" class="btn" value="Buy" name="buy{{reward2.2}}"></button>
+			{% endfor %}
+		</div>
+
+		<!-- {% for reward in RewardsList1 %} -->
+
+    	<!-- {% endfor %} -->
+
+		</form>
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

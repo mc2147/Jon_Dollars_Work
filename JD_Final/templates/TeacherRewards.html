@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- BOOTSTRAP BEGINS -->
+    	<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- STYLE BEGINS -->
+    <style>
+		    body {
+		  padding-top: 20px;
+		}
+
+		.footer {
+		  padding-top: 40px;
+		  padding-bottom: 40px;
+		  margin-top: 40px;
+		  border-top: 1px solid #eee;
+		}
+
+		/* Main marketing message and sign up button */
+		.jumbotron {
+		  text-align: center;
+		  background-color: transparent;
+		}
+		.jumbotron .btn {
+		  padding: 14px 24px;
+		  font-size: 21px;
+		}
+
+		/* Customize the nav-justified links to be fill the entire space of the .navbar */
+
+		.nav-justified {
+		  background-color: #eee;
+		  border: 1px solid #ccc;
+		  border-radius: 5px;
+		}
+		.nav-justified > li > a {
+		  padding-top: 15px;
+		  padding-bottom: 15px;
+		  margin-bottom: 0;
+		  font-weight: bold;
+		  color: #777;
+		  text-align: center;
+		  background-color: #e5e5e5; /* Old browsers */
+		  background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e5e5e5));
+		  background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+		  background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+		  background-image:         linear-gradient(to bottom, #f5f5f5 0%,#e5e5e5 100%);
+		  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+		  background-repeat: repeat-x; /* Repeat the gradient */
+		  border-bottom: 1px solid #d5d5d5;
+		}
+		.nav-justified > .active > a,
+		.nav-justified > .active > a:hover,
+		.nav-justified > .active > a:focus {
+		  background-color: #ddd;
+		  background-image: none;
+		  -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+		          box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+		}
+		.nav-justified > li:first-child > a {
+		  border-radius: 5px 5px 0 0;
+		}
+		.nav-justified > li:last-child > a {
+		  border-bottom: 0;
+		  border-radius: 0 0 5px 5px;
+		}
+
+		@media (min-width: 768px) {
+		  .nav-justified {
+		    max-height: 52px;
+		  }
+		  .nav-justified > li > a {
+		    border-right: 1px solid #d5d5d5;
+		    border-left: 1px solid #fff;
+		  }
+		  .nav-justified > li:first-child > a {
+		    border-left: 0;
+		    border-radius: 5px 0 0 5px;
+		  }
+		  .nav-justified > li:last-child > a {
+		    border-right: 0;
+		    border-radius: 0 5px 5px 0;
+		  }
+		}
+
+		/* Responsive: Portrait tablets and up */
+		@media screen and (min-width: 768px) {
+		  /* Remove the padding we set earlier */
+		  .masthead,
+		  .marketing,
+		  .footer {
+		    padding-right: 0;
+		    padding-left: 0;
+		  }
+		}
+	</style>
+
+    <!-- STYLE ENDS -->
+
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Justified Nav Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="justified-nav.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- The justified navigation menu is meant for single line per list item.
+           Multiple lines will require custom code not provided by Bootstrap. -->
+        <form method="GET" style="padding-bottom:5px;">
+        <h3 class="text-muted">Edit {{Classes.0}}'s Reward List
+        <input style="float: right; margin-left:10px" name="logout" type="submit" class="btn btn-danger" value="Logout"></input>
+  				<select class="form-control" style="width:200px; float:right;"  name="selectclass" id="sel" onchange="this.form.submit()">
+          {% for class in Classes %}
+          <option type="submit" name="{{class}}">{{class}}</option>
+          {% endfor %}
+          </select>
+
+          <a href="manage-classes" style="float: right; margin-right:10px"  class="btn btn-primary">Manage Classes</a>
+        </h3>
+        </form>
+      <div class="masthead">
+        <nav>
+          <ul class="nav nav-justified">
+            <li><a href=home>Home</a></li>
+            <li><a href=good-deeds>Good Deeds</a></li>
+            <li class="active"><a href=rewards>Rewards</a></li>
+            <li><a href=point-requests>Point Requests</a></li>
+            <li><a href=spend-requests>Student Rewards</a></li>            
+            <li><a href=settings>Settings</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="row">
+      	<div class="col-sm-6">
+
+	      		<form method = "POST" action = "">{% csrf_token %}
+	      		<h3>Enter Reward</h3>
+		  		<div class="form-group">
+		    		<label for="formGroupExampleInput">Name of Reward</label>
+		    		<input name="Name" type="text" class="form-control" id="formGroupExampleInput" placeholder="Type the name of the reward here">
+		  		</div>
+		  		<div class="form-group">
+		    		<label for="formGroupExampleInput">Dollar Cost</label>
+		    		<input name="Cost" type="number" class="form-control" id="formGroupExampleInput2" placeholder="Enter the number of dollars the reward will cost">
+	  			</div>
+      				<input type="submit" value="Add Reward" class="btn btn-primary" name="addR"> 
+      				<input type="submit" value="Clear Existing Rewards" class="btn btn-primary" name="clear">
+				</form>
+      	</div>
+
+      	<form method = "POST" action = "">{% csrf_token %}
+      	<div class="col-sm-3">        
+      	  	<h3>Rewards</h3>
+      	  	
+      	  	{% for reward in RewardsList %}
+			<div class="checkbox">
+					<label><input type="checkbox" value={{reward.2}} name="R" id={{reward.2}}>{{reward.0}}</label>
+			</div>
+			{% endfor %}
+			<input type = "submit" class="btn btn-primary" value="Delete Selected" name="delete" data-toggle="modal"></input>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Edit Selected</button>
+
+				<div class="modal fade" id="myModal" role="dialog">
+    				<div class="modal-dialog modal-lg">
+    					<div class="modal-content">
+        					<div class="modal-header">
+          					<button type="button" class="close" data-dismiss="modal">&times;</button>
+          					<h4 class="modal-title">Edit Reward</h4>
+        					</div>
+        					<div class="modal-body">
+        					<input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter new reward here" name="nreward"> 
+        					<br>
+        					<input type="number" class="form-control" id="formGroupExampleInput" placeholder="Enter new point value here" name="npoint">
+          					<input type="submit" value="Edit Reward" name="editrewards" class="btn btn-default" >
+        					</div>
+        				</div>
+    				</div>
+  				</div>
+
+		</div>
+		<div class="col-sm-3">        
+      	  	<h3>Dollar Cost</h3>
+      	  	{% for reward in RewardsList %}
+			<div class="checkbox">
+					<label>{{reward.1}}</label>
+			</div>
+			{% endfor %}
+
+		</div>
+      </div>
+      </form>
+
+      <!-- Site footer -->
+      <footer class="footer">
+        <p>&copy; 2016 Company, Inc.</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

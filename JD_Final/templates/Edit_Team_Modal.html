@@ -1,0 +1,75 @@
+<div class="modal fade" id="edit_team" role="dialog">
+        <div class="modal-dialog modal-lg"> 
+          <div class="modal-content">
+              <div class="modal-header">
+                <button type="submit" name="close" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Create Team</h4>
+              </div>
+              
+              <div class="modal-body" style="height:300px;">
+              <div class="col-sm-6">
+                Add Student
+                <br>
+                <br>
+                <!-- <ul class="dropdown-menu"> -->
+                
+                <select class="form-control" name="selectteammember" id="sel">
+                {% for item in NoUnassigned %}
+                <option name="{{item}}"">{{item}}</option>
+                {% endfor %}
+
+
+                {%for student in Unassigned %}
+                <option name="{{student.1}}">{{student.0}} ({{student.1}})</option>
+                {% endfor %}
+                <!-- </ul> -->
+                </select>
+
+                <br>
+                <input class="btn btn-primary" name="edit_team_add" type="submit" value ="Add to Team">
+              </div>
+
+              <div class="col-sm-6">
+                Assign Captain
+                <br>
+                <br>
+                
+                <select class="form-control" name="selectteamcaptain" id="sel">
+                {% for student in TeamMembers %}
+                <option name="{{student.1}}" value="{{student.1}}">{{student.0}} ({{student.1}})</option>
+                {% endfor %}
+                </select>
+
+                
+                <br>
+                <input type="submit" name="team_captain" value="Assign Captain" class="btn btn-primary">
+                </div>
+              </div>
+          </div>
+        </div>
+        </div>
+
+        <script>
+        function team_edit_modal() { 
+          $("#edit_team").modal()
+        }
+        window.onload = team_edit_modal;
+        </script>
+
+    </form>
+    </div>
+
+
+      <!-- Site footer -->
+
+    </div> <!-- /container -->
+
+      <footer class="footer">
+        <p>&copy; 2016 Company, Inc.</p>
+      </footer>
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

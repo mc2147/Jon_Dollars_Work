@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- BOOTSTRAP BEGINS -->
+    	<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- BOOTSTRAP ENDS -->
+    <!-- STYLE BEGINS -->
+    <style>
+		    body {
+		  padding-top: 20px;
+		}
+
+		.footer {
+		  padding-top: 40px;
+		  padding-bottom: 40px;
+		  margin-top: 40px;
+		  border-top: 1px solid #eee;
+		}
+
+		/* Main marketing message and sign up button */
+		.jumbotron {
+		  text-align: center;
+		  background-color: transparent;
+		}
+		.jumbotron .btn {
+		  padding: 5px 5px;
+		  font-size: 12px;
+		}
+
+		/* Customize the nav-justified links to be fill the entire space of the .navbar */
+
+		.nav-justified {
+		  background-color: #eee;
+		  border: 1px solid #ccc;
+		  border-radius: 5px;
+		}
+		.nav-justified > li > a {
+		  padding-top: 15px;
+		  padding-bottom: 15px;
+		  margin-bottom: 0;
+		  font-weight: bold;
+		  color: #777;
+		  text-align: center;
+		  background-color: #e5e5e5; /* Old browsers */
+		  background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e5e5e5));
+		  background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+		  background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+		  background-image:         linear-gradient(to bottom, #f5f5f5 0%,#e5e5e5 100%);
+		  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+		  background-repeat: repeat-x; /* Repeat the gradient */
+		  border-bottom: 1px solid #d5d5d5;
+		}
+		.nav-justified > .active > a,
+		.nav-justified > .active > a:hover,
+		.nav-justified > .active > a:focus {
+		  background-color: #ddd;
+		  background-image: none;
+		  -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+		          box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+		}
+		.nav-justified > li:first-child > a {
+		  border-radius: 5px 5px 0 0;
+		}
+		.nav-justified > li:last-child > a {
+		  border-bottom: 0;
+		  border-radius: 0 0 5px 5px;
+		}
+
+		@media (min-width: 768px) {
+		  .nav-justified {
+		    max-height: 52px;
+		  }
+		  .nav-justified > li > a {
+		    border-right: 1px solid #d5d5d5;
+		    border-left: 1px solid #fff;
+		  }
+		  .nav-justified > li:first-child > a {
+		    border-left: 0;
+		    border-radius: 5px 0 0 5px;
+		  }
+		  .nav-justified > li:last-child > a {
+		    border-right: 0;
+		    border-radius: 0 5px 5px 0;
+		  }
+		}
+
+		/* Responsive: Portrait tablets and up */
+		@media screen and (min-width: 768px) {
+		  /* Remove the padding we set earlier */
+		  .masthead,
+		  .marketing,
+		  .footer {
+		    padding-right: 0;
+		    padding-left: 0;
+		  }
+		}
+	</style>
+
+    <!-- STYLE ENDS -->
+
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Justified Nav Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="justified-nav.css" rel="stylesheet">
+
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- The justified navigation menu is meant for single line per list item.
+           Multiple lines will require custom code not provided by Bootstrap. -->
+        <form method="GET" style="padding-bottom:5px;">
+        <h3 class="text-muted">Welcome, {{Name}}! 
+        <input style="float: right; margin-left:10px" name="logout" type="submit" class="btn btn-danger" value="Logout"></input>
+            <!-- <div class="dropdown"> -->               
+          <select class="form-control" style="width:200px; float:right;"  name="selectclass" id="sel" onchange="this.form.submit()">
+          {% for class in Classes %}
+          <option type="submit" name="{{class}}">{{class}}</option>
+          {% endfor %}
+          </select>
+
+          <a href="manage-classes" style="float: right; margin-right:10px"  class="btn btn-primary">Manage Classes</a>
+        </h3>
+    
+
+
+      <div class="masthead">
+        <nav>
+          <ul class="nav nav-justified">
+            <li class="active"><a href=home>Home</a></li>
+            <li><a href=good-deeds>Good Deeds</a></li>
+            <li><a href=rewards>Rewards</a></li>
+            <li><a href=point-requests> Point Requests</a></li>
+            <li><a href=spend-requests>Student Rewards</a></li>            
+            <li><a href=settings>Settings</a></li>
+          </ul>
+        </nav>
+      </div>
+      </form>
+
+      <!-- Jumbotron -->
+      <div class="row">
+        <form method="GET"> 
+        <div class="col-sm-3">
+          <h3>Student List<button type="button" style="margin-left:20px;" data-toggle="modal" data-target="#addStudent" class="btn btn-primary" name="modal">Add Student</button> </h3>
+          <h4>Name / Username</h4>
+          {% for student in Students %}
+          <p style="margin:0; padding:0; line-height:20px;">
+          <input type="radio" value="{{student.0}}"" name="select" id="{{student.0}}" style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> {{student.1}} / {{student.0}} </p>    
+          {% endfor %}
+          <br>
+          <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary" name="modal">Edit</button> 
+          <input type="submit" class="btn btn-primary" value="Delete" name="delete_btn"></input>
+          <button type="button" data-toggle="modal" data-target="#teamModal" class="btn btn-primary" name="modal">Assign to Team</button>
+          <br>
+        </div>
+        <!-- FIRST COLUMN DIV -->
+      <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Edit Student</h4>
+              </div>
+              <div class="modal-body">
+              Points will automatically be converted to dollars. Leave fields blank to leave them unchanged.
+              <br>
+              Edit Total Points<br>
+              <input type="integer" name="cust_val" id="cust_val"><br>
+              Edit First Name<br> 
+              <input type="text" name="new_fname" id="new_fname"><br>
+              Edit Last Name<br>  
+              <input type="text" name="new_lname" id="new_lname"><br>
+              <br>
+              <input type="submit" class="btn" value="Edit" name="edit_btn"><br>
+              </div>
+            </div>
+        </div>
+      </div>
+
+        <div class = "col-sm-4">
+        <div style="height:34px;"><h3> </h3></div>
+              
+        <div style="margin-left:0px;" class="col-sm-6">
+        <h4>Dollars (10 Points)</h4>
+        {% for student in Students %}
+        <p style="margin:0; padding:0; line-height:20px;"> {{student.5}} </p>
+        {% endfor %}
+        <br>
+        <input type="submit" name="givedollar" class="btn btn-success" value="+ 1"> 
+        <input type="submit" name="removedollar" class="btn btn-danger" value="- 1">
+        <br>
+        </div>        
+        
+        <div class="col-sm-6">
+        <h4>Points</h4>
+        {% for student in Students %}
+        <p style="margin:0; padding:0; line-height:20px;"> {{student.4}} </p>
+        {% endfor %}
+        <br>
+        <input type="submit" name="givepoint" class="btn btn-success" value="+ 1"> 
+        <input type="submit" name="removepoint" class="btn btn-danger" value="- 1">
+        </div>
+
+        <!-- END OF 2ND COLUMN HERE -->
+    
+
+		<!-- Modal starts here -->
+		<div class="modal fade" id="teamModal" role="dialog">
+
+    		<div class="modal-dialog modal-lg"> 
+
+    			<div class="modal-content">
+        			<div class="modal-header">
+         				<button type="button" class="close" data-dismiss="modal">&times;</button>
+          				<h4 class="modal-title">Add Student to Team</h4>
+        			</div>
+        			
+        			<div class="modal-body" style="height:300px;">
+        				<div class="col-sm-6">
+        				Student information
+        				<p>Student Name </p>
+        				<p>Student Username </p>
+        				<p>Student Points</p>
+        				</div>
+
+        				<div class="col-sm-3">
+        					<div class="dropdown">
+  							<label for="sel1">Select Team</label>
+  							<select class="form-control"  name="selectteam" id="sel1">
+  							{% for team in Teams %}
+  							<option name={{team.1}}>{{team.0}}</option>
+  							{% endfor %}
+							</select>    						
+ 							</div>
+						  </div>
+
+        				<div class="col-sm-3">
+        					<input class="btn btn-primary" name="teamadd" type="submit" value ="Add Student to Team">
+        				</div>
+        			</div>
+
+        		</div>
+    		</div>
+  		</div>
+        </div>
+    </form>
+
+    <div class = "col-sm-5">
+    <form method = 'GET' action = "#">{% csrf_token %}      
+      <h3>Teams</h3>
+        {% for team in Teams %}
+          <input type="radio" value="{{team.0}}" name="selectteam" id='{{team.0}}' style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> {{team.0}} ({{team.4}} dollars, {{team.5}} points):</input><br> 
+          <p style="margin-left:17px;"> <b>{{team.3}}</b>{{team.2}}</p>
+        {% endfor %}
+        <br>        
+          <input type="submit" class="btn btn-primary" value="Edit Team" name="edit_team"></input>   
+          <input  name="logout" data-toggle="modal" data-target="#newteam" type="button" class="btn btn-primary" value="Create Team"></input>
+          <input type="submit" class="btn btn-primary" value="Delete Team" name="delete_team"></input>      
+          
+    </div>
+
+
+        <div class = "col-sm-2" style="margin-left:0px;">
+        <script>
+
+            function empty() {
+
+              window.location.href = "settings";
+
+              x = document.getElementById("studentid").value
+          if (x == "") {
+
+            alert("Student ID field can not be empty");
+            window.location.href = "home";
+
+            return false
+            }
+
+            }
+
+            function modal_open() {
+              
+              $('#edit_team').modal('show');
+        
+            };
+
+    </script>
+
+        <div class="modal fade" id="addStudent" role="dialog">
+        <div class="modal-dialog modal-lg" style="width:30%"> 
+          <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Add Students to This Class</h4>
+              </div>
+
+              <div class="modal-body" style="height:400px; text-align:center;">
+               <h3>Add Student</h3>
+                <form method = 'GET' action = "#">{% csrf_token %}    
+          
+                First name:<br>
+                <input type="text" name="firstname" id ="firstname"><br>
+          
+                Last name:<br>
+                <input type="text" name="lastname" id="lastname"><br> 
+          
+                Number of points:<br>
+                <input type="integer" name="points" id="points"><br>  
+        
+                Username<br>  
+                <input type="text" name="studentusername" id="studentusername"><br>
+
+                Default Password<br>
+                <input type="text" name="defaultpassword" id="defaultpassword"><br>
+                <br>  
+                <input type="submit" class="btn btn-primary" value="Add Student" name="add_student_btn" onclick="return empty()">
+                <br> <br>
+                </form>
+
+              </div>
+
+            </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- TEAM COLUMN STARTS HERE -->
+    <!-- TEAM COLUMN -->
+    <!-- TEAM COLUMN -->
+    <!-- TEAM COLUMN -->
+
+
+       <!-- {% for name in names %}  
+        <p style="margin:0; padding:0; line-height:20px;">
+        <input type="radio" value={{name.2}} name="select" id={{name.2}} style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> {{name.0}}</input>
+        </p>    
+        {% endfor %}
+ -->
+
+			<div class="modal fade" id="newteam" role="dialog">
+    		<div class="modal-dialog modal-lg"> 
+    			<div class="modal-content">
+        			<div class="modal-header">
+         				<button type="button" class="close" data-dismiss="modal">&times;</button>
+          				<h4 class="modal-title">Create Team</h4>
+        			</div>
+        			
+        			<div class="modal-body" style="height:300px;">
+        			<div class="col-sm-6">
+        				Enter Team Name<br>
+						    <input type="text" name="team_name" id="team_name"><br>
+						    <br>
+        				<input class="btn btn-primary" name="teamcreate" type="submit" value ="Create Team">
+					    </div>
+
+					    <div class="col-sm-6">
+						    Add Student by Username<br>
+						    <input type="text" name="student_username" id="student_username"><br>
+						    <br>
+						    <input type="submit" class="btn btn-primary">Add Student</button>
+					    </div>
+        			</div>
+        	</div>
+    		</div>
+  		</div>	
+        
+
+<!--    
+        <input  name="edit_team" type="submit" class="btn btn-primary" value="Edit Team"></input> -->
+      
+
+
+		</form>
+    </div>
+
+
+      <!-- Site footer -->
+
+    </div> <!-- /container -->
+
+      <footer class="footer">
+        <p>&copy; 2016 Company, Inc.</p>
+      </footer>
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
