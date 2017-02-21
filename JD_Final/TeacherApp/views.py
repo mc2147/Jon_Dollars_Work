@@ -101,6 +101,7 @@ def teacher_info(user):
 
 
 #MANAGE CLASSES STARTS HERE
+@user_passes_test(teacher_check)
 def ManageClasses(request):
 	user = request.user
 	curr_teacher = Teacher.objects.get(user=user)
@@ -362,6 +363,93 @@ def get_classroom(request):
 	return classroom
 
 
+#STUDENT USERS TO IMPORT
+point_list = [4, 10, 8, 8, 8, 4, 2, 6, 4, 4, 4, 0, 0, 0, 6, 8, 8, 10, 2, 0, 0]
+username_list = ['erni12322',
+ 'bollocks',
+ 'Valcupcake',
+ 'Felipitote:)',
+ 'Ando',
+ 'nat0512',
+ 'gaby_rosales',
+ 'elivs',
+ 'diego_flowers',
+ 'fergoncor',
+ 'anuarllz',
+ 'marianaverdejo',
+ 'Santiago',
+ 'lors',
+ 'boli',
+ 'moru_rogel',
+ 'Fer-a',
+ 'Eric00',
+ "seb's",
+ 'LuisaFer',
+ 'Isabelmomo']
+fname_list = ['Erni :)',
+ 'Celso',
+ 'Valeria',
+ 'Felipe',
+ 'Andrea',
+ 'natalia',
+ 'gabriela',
+ 'Elisa',
+ 'Diego',
+ 'Fernando',
+ 'Anuar',
+ 'Mariana',
+ 'Santiago',
+ 'Lorena',
+ 'Lolina',
+ 'Moru',
+ 'Fernanda',
+ 'Erick',
+ 'Sebastian',
+ 'Luisa',
+ 'Isabel']
+lname_list = [u'Anaya',
+ u'Serna Klock',
+ u'Ruiz',
+ u'Niembro',
+ u'Alonso',
+ u'pati\xf1o',
+ u'rosales',
+ u'Villagordoa',
+ u'Flores ',
+ u'Gonzales',
+ u'LLamas',
+ u'Verdejo',
+ u'Perez',
+ u'Villasana',
+ u'Schietekat',
+ u'Rogel',
+ u'Nava',
+ u'Martinez',
+ u'Sanchez',
+ u'Salda\xf1a',
+ u'Morales']
+
+#username_list
+#point_list
+#fname_list
+#lname_list
+
+#	for i in range(len(username_list)):
+	# 	print(username_list[i])
+	# 	print(fname_list[i])
+	# 	print(lname_list[i])
+	# 	print(point_list[i])
+	# 	new_user = User.objects.get(username=username_list[i], password="default")
+	# 	#new_user.save()
+	# 	#new_student = Student(user=new_user)
+	# 	#new_student.points = point_list[i]
+	# 	new_student = Student.objects.get(user=new_user)
+	# 	#classroom.students.add(new_student)
+	# 	#classroom.save()
+	#	change_user = User.objects.get(username=username_list[i])
+	#	change_user.first_name = fname_list[i]
+	#	change_user.last_name = lname_list[i]
+	#	change_user.save()
 
 
 # Create your views here.
@@ -390,11 +478,37 @@ def TeacherHome(request):
 	PRs = ref_dict["PRs"]
 	SRs = ref_dict["SRs"]
 	teams = ref_dict["teams"]
+	
+
+#	for i in range(len(username_list)):
+	# 	print(username_list[i])
+	# 	print(fname_list[i])
+	# 	print(lname_list[i])
+	# 	print(point_list[i])
+#	 	new_user = User.objects.get(username=username_list[i])
+#	 	new_user.set_password("default")
+#	 	new_user.save()
+#		new_student = Student.objects.get(user=new_user)
+#		teacher.students.add(new_student)
+#		teacher.save()
+	# 	#new_student.points = point_list[i]
+	# 	new_student = Student.objects.get(user=new_user)
+	# 	#classroom.students.add(new_student)
+	# 	#classroom.save()
+	#	change_user = User.objects.get(username=username_list[i])
+	#	change_user.first_name = fname_list[i]
+	#	change_user.last_name = lname_list[i]
+	#	change_user.save()
+
+
+	classroom.save()
+
+
 
 	context = {}
 	context['Name'] = user.first_name
-	print(user.username)
-	print(user.first_name + " " + user.last_name)
+#	print(user.username)
+#	print(user.first_name + " " + user.last_name)
 	teacher_classroom_names = []
 	for i in teacher_classes:
 		teacher_classroom_names.append(i.name)
@@ -435,7 +549,7 @@ def TeacherHome(request):
 			student_list.append(student_info)
 
 	def UpdateContextStudents():
-		a = Student.objects.filter(class_name=classroom.name)
+		a = classroom.students.all()
 		username_check = []
 		for x in student_list:
 			username_check.append(x[0])
@@ -465,7 +579,6 @@ def TeacherHome(request):
 		points = request.REQUEST.get("points")
 		if User.objects.filter(username=studentusername).exists():
 			context["UsernameError"] = "This username is taken"
-			return HttpResponseRedirect('/teacher/home')
 		else:
 			#Student: created on teacher home page, mapped under classroom(MTM), mapped under teacher(MTM)
 				#Has: User (OTO), points, Requests (MTM), Spend Requests (MTM), Captain (T/F), teacher_user(teacher username), class_name
@@ -484,9 +597,6 @@ def TeacherHome(request):
 
 			teacher.students.add(new_student)
 			teacher.save()
-
-			UpdateContextStudents()
-
 			return HttpResponseRedirect("/teacher/home")
 
 	if(request.GET.get("givepoint")):
@@ -675,30 +785,30 @@ def TeacherHome(request):
 		edit_team_name = request.REQUEST.get("selectteam")
 		if classroom.teams.filter(name=edit_team_name).exists():
 			edit_team = classroom.teams.get(name=edit_team_name)
-		team_student_list = []
-		for x in edit_team.members.all():
-			student_info = []
-			student_info.append(x.user.first_name + " " + x.user.last_name) #0 is full name
-			student_info.append(x.user.username) #1 is username
-			student_info.append(x.points) #2 is points
-			student_info.append(x.captain) #3 is captain status 
-			team_student_list.append(student_info)
-		unassigned_students = []
-		for x in class_students:
-			student_info = []
-			if not x.team_set.all():
+			team_student_list = []
+			for x in edit_team.members.all():
+				student_info = []
 				student_info.append(x.user.first_name + " " + x.user.last_name) #0 is full name
 				student_info.append(x.user.username) #1 is username
 				student_info.append(x.points) #2 is points
-				unassigned_students.append(student_info)
-		if unassigned_students == []:
-			context["NoUnassigned"] = ["All students are already on teams"]
-		else:
-			context["Unassigned"] = unassigned_students
-		context["TeamMembers"] = team_student_list
-		teacher.curr_team = edit_team_name
-		teacher.save()
-		return render(request, "TeacherHomeModal.html", context)
+				student_info.append(x.captain) #3 is captain status 
+				team_student_list.append(student_info)
+			unassigned_students = []
+			for x in class_students:
+				student_info = []
+				if not x.team_set.all():
+					student_info.append(x.user.first_name + " " + x.user.last_name) #0 is full name
+					student_info.append(x.user.username) #1 is username
+					student_info.append(x.points) #2 is points
+					unassigned_students.append(student_info)
+			if unassigned_students == []:
+				context["NoUnassigned"] = ["All students are already on teams"]
+			else:
+				context["Unassigned"] = unassigned_students
+			context["TeamMembers"] = team_student_list
+			teacher.curr_team = edit_team_name
+			teacher.save()
+			return render(request, "TeacherHomeModal.html", context)
 
 	#This is in the modal box to add a team member
 	if(request.GET.get("edit_team_add")):
