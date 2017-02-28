@@ -158,10 +158,11 @@ class Team(models.Model):
 		output = []
 		raw_total = self.dollars*10 + self.points
 		num = self.members.count()
-		raw_avg = raw_total/num
-		output.append((raw_avg - (raw_avg % 10))/10)
-		output.append(raw_avg % 10)
-		return output
+		if num != 0:
+			raw_avg = raw_total/num
+			output.append((raw_avg - (raw_avg % 10))/10)
+			output.append(raw_avg % 10)
+			return output
 	def leading_scorers(self):
 		scores = []
 		output = []

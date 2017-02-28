@@ -457,8 +457,8 @@ lname_list = [u'Anaya',
 def TeacherHome(request):
 	logout_func(request)
 	user = request.user
-		# all_classrooms = teacher.classrooms.all()
 		# teacher = Teacher.objects.get(user=user)
+		# all_classrooms = teacher.classrooms.all()
 		# classroom_name = teacher.curr_class
 		# classroom = Classroom.objects.get(name=classroom_name)
 		# students = classroom.students.all()
@@ -478,37 +478,10 @@ def TeacherHome(request):
 	PRs = ref_dict["PRs"]
 	SRs = ref_dict["SRs"]
 	teams = ref_dict["teams"]
-	
-
-#	for i in range(len(username_list)):
-	# 	print(username_list[i])
-	# 	print(fname_list[i])
-	# 	print(lname_list[i])
-	# 	print(point_list[i])
-#	 	new_user = User.objects.get(username=username_list[i])
-#	 	new_user.set_password("default")
-#	 	new_user.save()
-#		new_student = Student.objects.get(user=new_user)
-#		teacher.students.add(new_student)
-#		teacher.save()
-	# 	#new_student.points = point_list[i]
-	# 	new_student = Student.objects.get(user=new_user)
-	# 	#classroom.students.add(new_student)
-	# 	#classroom.save()
-	#	change_user = User.objects.get(username=username_list[i])
-	#	change_user.first_name = fname_list[i]
-	#	change_user.last_name = lname_list[i]
-	#	change_user.save()
-
-
 	classroom.save()
-
-
 
 	context = {}
 	context['Name'] = user.first_name
-#	print(user.username)
-#	print(user.first_name + " " + user.last_name)
 	teacher_classroom_names = []
 	for i in teacher_classes:
 		teacher_classroom_names.append(i.name)
@@ -598,60 +571,99 @@ def TeacherHome(request):
 			teacher.students.add(new_student)
 			teacher.save()
 			return HttpResponseRedirect("/teacher/home")
-
+	#ADD/REMOVE POINTS AND DOLLARS BUTTONS START HERE 
 	if(request.GET.get("givepoint")):
-		print("give point test")
-		print(request.REQUEST.get("select"))
-		if request.REQUEST.get("select") != "":
-			point_username = request.GET.get("select")
-			print("request from select")
-			print(point_username)
-			point_user = User.objects.get(username=point_username)
-			point_student = Student.objects.get(user=point_user)
-			point_student.points = point_student.points + 1
-			point_student.update()
-			point_student.save()
+		student_list = request.GET.getlist("select")
+		point_add = request.REQUEST.get("point_value")
+		if point_add != "" and len(student_list) > 0:
+			for i in student_list:
+				point_username = i
+				point_user = User.objects.get(username=point_username)
+				point_student = Student.objects.get(user=point_user)
+				point_student.points = point_student.points + int(point_add)
+				point_student.update()
+				point_student.save()
 			return HttpResponseRedirect("/teacher/home")
 		else:
 			return HttpResponseRedirect("/teacher/home")
+
+#		print("give point test")
+#		print(request.REQUEST.get("select"))
+		# if request.REQUEST.get("select") != "":
+		# 	point_username = request.GET.get("select")
+		# 	print("request from select")
+		# 	print(point_username)
+		# 	point_user = User.objects.get(username=point_username)
+		# 	point_student = Student.objects.get(user=point_user)
+		# 	point_student.points = point_student.points + 1
+		# 	point_student.update()
+		# 	point_student.save()
+		# 	return HttpResponseRedirect("/teacher/home")
 
 	if(request.GET.get("removepoint")):
-		if request.REQUEST.get("select") != "":
-			point_username = request.REQUEST.get("select")
-			point_user = User.objects.get(username=point_username)
-			point_student = Student.objects.get(user=point_user)
-			if point_student.points == 0:
-				point_student.points = 9
-				point_student.dollars = point_student.dollars - 1
-				point_student.save()
-			else:
-				point_student.points = point_student.points - 1
+		student_list = request.GET.getlist("select")
+		point_add = request.REQUEST.get("point_value")
+		if point_add != "" and len(student_list) > 0:
+			for i in student_list:
+				point_username = i
+				point_user = User.objects.get(username=point_username)
+				point_student = Student.objects.get(user=point_user)
+				point_student.points = point_student.points - int(point_add)
+				point_student.update()
 				point_student.save()
 			return HttpResponseRedirect("/teacher/home")
 		else:
 			return HttpResponseRedirect("/teacher/home")
+		# if request.REQUEST.get("select") != "":
+		# 	point_username = request.REQUEST.get("select")
+		# 	point_user = User.objects.get(username=point_username)
+		# 	point_student = Student.objects.get(user=point_user)
+		# 	if point_student.points == 0:
+		# 		point_student.points = 9
+		# 		point_student.dollars = point_student.dollars - 1
+		# 		point_student.save()
+		# 	else:
+		# 		point_student.points = point_student.points - 1
+		# 		point_student.save()
+		# 	return HttpResponseRedirect("/teacher/home")
+		# else:
+		# 	return HttpResponseRedirect("/teacher/home")
 
 	if(request.GET.get("givedollar")):
-		if request.REQUEST.get("select") != "":
-			point_username = request.REQUEST.get("select")
-			point_user = User.objects.get(username=point_username)
-			point_student = Student.objects.get(user=point_user)
-			point_student.dollars = point_student.dollars + 1
-			point_student.save()
+		student_list = request.GET.getlist("select")
+		dollar_change = request.REQUEST.get("dollar_value")
+		if dollar_change != "" and len(student_list) > 0:
+			for i in student_list:
+				point_username = i
+				point_user = User.objects.get(username=point_username)
+				point_student = Student.objects.get(user=point_user)
+				point_student.dollars = point_student.dollars + int(dollar_change)
+				point_student.update()
+				point_student.save()
 			return HttpResponseRedirect("/teacher/home")
 		else:
 			return HttpResponseRedirect("/teacher/home")
+		# if request.REQUEST.get("select") != "":
+		# 	point_username = request.REQUEST.get("select")
+		# 	point_user = User.objects.get(username=point_username)
+		# 	point_student = Student.objects.get(user=point_user)
+		# 	point_student.dollars = point_student.dollars + 1
+		# 	point_student.save()
+		# 	return HttpResponseRedirect("/teacher/home")
+		# else:
+		# 	return HttpResponseRedirect("/teacher/home")
 
 	if(request.GET.get("removedollar")):
-		if request.REQUEST.get("select") != "":
-			print(request.REQUEST.get("select"))
-			for x in User.objects.all():
-				print(x.username)
-			point_username = request.REQUEST.get("select")
-			point_user = User.objects.get(username=point_username)
-			point_student = Student.objects.get(user=point_user)
-			point_student.dollars = point_student.dollars - 1
-			point_student.save()
+		student_list = request.GET.getlist("select")
+		dollar_change = request.REQUEST.get("dollar_value")
+		if dollar_change != "" and len(student_list) > 0:
+			for i in student_list:
+				point_username = i
+				point_user = User.objects.get(username=point_username)
+				point_student = Student.objects.get(user=point_user)
+				point_student.dollars = point_student.dollars + int(dollar_change)
+				point_student.update()
+				point_student.save()
 			return HttpResponseRedirect("/teacher/home")
 		else:
 			return HttpResponseRedirect("/teacher/home")
@@ -665,10 +677,9 @@ def TeacherHome(request):
 			newfname = request.REQUEST.get("new_fname")
 			newlname = request.REQUEST.get("new_lname")			
 			if newpoints != "":
-
 				points_student.points = newpoints
 				points_student.reset()
-#				points_student.save()
+				points_student.save()
 			if newfname != "":
 				points_user.first_name = newfname
 				points_user.save()				

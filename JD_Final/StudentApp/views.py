@@ -193,7 +193,10 @@ def StudentHome(request):
 		row.append(i.name) #team name - 0
 		row.append(i.dollars) #team dollars - 1
 		row.append(i.points) #team points - 2
-		row.append(str(i.average()[0]) + " Dollars, " + str(i.average()[1]) + " Points") #team average - 3
+		if i.average():
+			row.append(str(i.average()[0]) + " Dollars, " + str(i.average()[1]) + " Points") #team average - 3
+		else:
+			row.append("blank")
 		row.append(i.score_leader()) #score leader - 4
 		context["Class_Teams"].append(row)
 	return render(request, "StudentHome.html", context)

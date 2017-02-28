@@ -176,7 +176,7 @@
           <h4>Name / Username</h4>
           {% for student in Students %}
           <p style="margin:0; padding:0; line-height:20px;">
-          <input type="radio" value="{{student.0}}"" name="select" id="{{student.0}}" style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> {{student.1}} / {{student.0}} </p>    
+          <input type="checkbox" value="{{student.0}}"" name="select" id="{{student.0}}" style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> {{student.1}} / {{student.0}} </p>    
           {% endfor %}
           <br>
           <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary" name="modal">Edit</button> 
@@ -218,8 +218,9 @@
         <p style="margin:0; padding:0; line-height:20px;"> {{student.5}} </p>
         {% endfor %}
         <br>
-        <input type="submit" name="givedollar" class="btn btn-success" value="+ 1"> 
-        <input type="submit" name="removedollar" class="btn btn-danger" value="- 1">
+        <input type="integer" name="dollar_value" id="dollar_value" style="width:50px;">
+        <input type="submit" name="givedollar" class="btn btn-success" value="+"> 
+        <input type="submit" name="removedollar" class="btn btn-danger" value="-">
         <br>
         </div>        
         
@@ -229,8 +230,9 @@
         <p style="margin:0; padding:0; line-height:20px;"> {{student.4}} </p>
         {% endfor %}
         <br>
-        <input type="submit" name="givepoint" class="btn btn-success" value="+ 1"> 
-        <input type="submit" name="removepoint" class="btn btn-danger" value="- 1">
+        <input type="integer" name="point_value" id="point_value" style="width:50px;">        
+        <input type="submit" name="givepoint" class="btn btn-success" value="+"> 
+        <input type="submit" name="removepoint" class="btn btn-danger" value="-">
         </div>
 
         <!-- END OF 2ND COLUMN HERE -->
@@ -368,7 +370,7 @@
         </p>    
         {% endfor %}
  -->
-
+      <form method="GET">
 			<div class="modal fade" id="newteam" role="dialog">
     		<div class="modal-dialog modal-lg"> 
     			<div class="modal-content">
@@ -383,13 +385,6 @@
 						    <input type="text" name="team_name" id="team_name"><br>
 						    <br>
         				<input class="btn btn-primary" name="teamcreate" type="submit" value ="Create Team">
-					    </div>
-
-					    <div class="col-sm-6">
-						    Add Student by Username<br>
-						    <input type="text" name="student_username" id="student_username"><br>
-						    <br>
-						    <input type="submit" class="btn btn-primary">Add Student</button>
 					    </div>
         			</div>
         	</div>
