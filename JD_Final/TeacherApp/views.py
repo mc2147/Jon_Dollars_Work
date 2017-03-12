@@ -760,14 +760,17 @@ def TeacherHome(request):
 	unassigned_students = []
 	for x in class_students:
 		student_info = []
+
 		if not x.team_set.all():
 			student_info.append(x.user.first_name + " " + x.user.last_name) #0 is full name
 			student_info.append(x.user.username) #1 is username
 			student_info.append(x.points) #2 is points
 			unassigned_students.append(student_info)
+
 		if unassigned_students == []:
 			context["NoUnassigned"] = ["All students are already on teams"]
 		else:
+			context["NoUnassigned"] = []
 			context["Unassigned"] = unassigned_students
 
 

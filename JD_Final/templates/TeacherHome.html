@@ -320,8 +320,8 @@
               
               <div class="modal-body" style="height:300px;">
                 <div class="col-sm-6">
-                  Students Without Teams
-                  <br>
+                  <h4>Add Students to Teams</h4>
+                  Students Without Teams:
                   <br>
                   <select class="form-control" name="selectteammember" id="sel">
                   {% for item in NoUnassigned %}
@@ -332,12 +332,11 @@
                   {% endfor %}
                   </select>
                   <br>
-                  <input class="btn btn-primary" name="edit_team_add" type="submit" value ="Add to Team">
+                  <input class="btn btn-primary" name="edit_team_add" type="submit" value ="Add Student to Team">
                 </div>
 
                 <div class="col-sm-6">
-                  Change Team Name                
-                  <br>
+                  <h4>Change Team Name</h4>
                   <br>
                   <input type="text" name="new_team_name" id="new_team_name"><br>             
                   <br>
