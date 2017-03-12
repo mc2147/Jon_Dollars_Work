@@ -281,7 +281,10 @@
     <div class = "col-sm-5">
     <form method = 'GET' action = "#">{% csrf_token %}      
       <h3>Teams     
-      <input style="margin-left:20px;" name="createteam" data-toggle="modal" data-target="#newteam" type="button" class="btn btn-primary" value="Create Team"></input>
+      <input style="margin-left:20px;" name="createteam" data-toggle="modal" data-target="#newteam" type="button" class="btn btn-primary" value="Create Team"></input>           
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudent" value="Add Student" name="teammodal">Edit Team
+          </button>   
+          <input type="submit" class="btn btn-danger" value="Delete Team" name="delete_team"></input>      
       </h3>
         {% for team in Teams %}
           <h5 style="font-size:18px;"><input type="radio" value="{{team.0}}" name="selectteam" id='{{team.0}}' style=" margin:0; padding:0; line-height:20px; transform: scale(1)"><b>  {{team.0}}</b> ({{team.4}} dollars, {{team.5}} points):</input></h5>
@@ -303,9 +306,7 @@
         <br>        
           <!-- <b>Team Buttons</b> -->
           <!-- <button type="button" style="margin-left:20px;" data-toggle="modal" data-target="#addStudent" class="btn btn-primary" name="modal">Add Student</button> -->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudent" value="Add Student" name="teammodal">Edit Team
-          </button>   
-          <input type="submit" class="btn btn-primary" value="Delete Team" name="delete_team"></input>      
+     
     </div>
 
       <form method="GET">

@@ -24,7 +24,7 @@ def ClassroomContext(user, selection):
 
 def teacher_check(user):
 	return Teacher.objects.filter(user=user).exists()
-	
+
 def teacher_info(user):
 	output = {}
 
@@ -39,7 +39,7 @@ def teacher_info(user):
 	PRs = classroom.PRs.all()
 	SRs = classroom.SRs.all()
 	teams = classroom.teams.all()
-	
+
 	output["teacher"] = teacher
 	output["all_classrooms"] = all_classrooms
 	output["classroom_name"] = classroom_name
@@ -50,7 +50,7 @@ def teacher_info(user):
 	output["PRs"] = PRs
 	output["SRs"] = SRs
 	output["teams"] = teams
-	
+
 	return output
 
 
@@ -88,7 +88,7 @@ def ManageClasses(request):
 			if request.GET.get(i):
 				curr_teacher.curr_class = i
 				curr_teacher.save()
-		classroom = Classroom.objects.get(name=curr_teacher.curr_class)	
+		classroom = Classroom.objects.get(name=curr_teacher.curr_class)
 		for i in classroom.students.all():
 			info = []
 			info.append(i.user.first_name + " " + i.user.last_name) #0 is full name
@@ -101,7 +101,7 @@ def ManageClasses(request):
 
 	CreateContext()
 	#maybe change to just Create and Update later -> you're changing more than just Context
-	def UpdateContext():	
+	def UpdateContext():
 		for i in curr_teacher.classrooms.all():
 			if i.name not in class_names:
 				class_names.append(i.name)
@@ -136,7 +136,7 @@ def ManageClasses(request):
 		student_username = request.REQUEST.get("select")
 		if student_username != "":
 			student_user = User.objects.get(username=student_username)
-			student = Student.objects.get(user=student_user) 
+			student = Student.objects.get(user=student_user)
 			student.points = student.points + 1
 			student.update()
 			student.save()
@@ -145,7 +145,7 @@ def ManageClasses(request):
 		else:
 			#empty error here
 			return HttpResponseRedirect("/teacher/manage-classes")
-		
+
 	if request.GET.get("remove_point_btn"):
 		student_username = request.REQUEST.get("select")
 		if student_username != "":
@@ -168,7 +168,7 @@ def ManageClasses(request):
 		student_username = request.REQUEST.get("select")
 		if student_username != "":
 			student_user = User.objects.get(username=student_username)
-			student = Student.objects.get(user=student_user) 
+			student = Student.objects.get(user=student_user)
 			student.dollars = student.dollars + 1
 			student.save()
 			UpdateContext()
@@ -176,12 +176,12 @@ def ManageClasses(request):
 		else:
 			#empty error here
 			return HttpResponseRedirect("/teacher/manage-classes")
-		
+
 	if request.GET.get("remove_dollar"):
 		student_username = request.REQUEST.get("select")
 		if student_username != "":
 			student_user = User.objects.get(username=student_username)
-			student = Student.objects.get(user=student_user) 
+			student = Student.objects.get(user=student_user)
 			student.dollars = student.dollars - 1
 			student.save()
 			UpdateContext()
@@ -189,10 +189,10 @@ def ManageClasses(request):
 		else:
 			#empty error here
 			return HttpResponseRedirect("/teacher/manage-classes")
-		
+
 
 	if request.GET.get("add_class_btn"):
-		#Class: 
+		#Class:
 			#mapped under teacher
 			#Has: name, class_num, students(MTM), teams Good Deeds, PRs, Rewards, SRs <- last 5 all MTM
 		name = request.REQUEST.get("new_classname")
@@ -287,12 +287,12 @@ def logout_func(request):
 	#Variables on every page - teacher, current classroom
 		#teacher = teacher
 		#current classroom = classroom
-		#attributes = object._name 
+		#attributes = object._name
 			#name
 			#username
-			#points 
+			#points
 	#Variables for manage class - same as above
-	#Variables for home - Student list, Team list 
+	#Variables for home - Student list, Team list
 	#Variables for GD List - GDs
 	#Variables for Rewards - Rewards
 	#Variables for Spendbox - Spend Requests
@@ -300,12 +300,12 @@ def logout_func(request):
 	#Variables for settings - username, password
 
 	#MODEL MAPPING
-	#Class: 
+	#Class:
 		#mapped under teacher
 		#Has: name, class_num, students(MTM), teams Good Deeds, PRs, Rewards, SRs <- last 5 all MTM
 	#Student: created on teacher home page, mapped under classroom(MTM), mapped under teacher(MTM)
 		#Has: User (OTO), points, Requests (MTM), Spend Requests (MTM), Captain (T/F), teacher_user(teacher username), class_name
-			
+
 #STUDENT USERS TO IMPORT
 point_list = [4, 10, 8, 8, 8, 4, 2, 6, 4, 4, 4, 0, 0, 0, 6, 8, 8, 10, 2, 0, 0]
 username_list = ['erni12322',
@@ -488,7 +488,7 @@ def TeacherHome(request):
 	if classroom.students.all():
 		StudentListContext()
 		context['Students'] = student_list
-	
+
 	if(request.GET.get('add_student_btn')):
 		f_name = request.REQUEST.get("firstname")
 		l_name = request.REQUEST.get("lastname")
@@ -504,7 +504,7 @@ def TeacherHome(request):
 			new_user.save()
 
 			new_student = Student(user=new_user)
-			new_student.points = points 
+			new_student.points = points
 			new_student.teacher_user = teacher.user.username #maps teacher's username as string
 			new_student.class_name = classroom.name #maps class name as string
 			new_student.save()
@@ -516,7 +516,7 @@ def TeacherHome(request):
 			teacher.students.add(new_student)
 			teacher.save()
 			return HttpResponseRedirect("/teacher/home")
-	#ADD/REMOVE POINTS AND DOLLARS BUTTONS START HERE 
+	#ADD/REMOVE POINTS AND DOLLARS BUTTONS START HERE
 	if(request.GET.get("givepoint")):
 		student_list = request.GET.getlist("select")
 		point_add = request.REQUEST.get("point_value")
@@ -620,18 +620,18 @@ def TeacherHome(request):
 		if(edit_username):
 			newpoints = request.REQUEST.get("cust_val")
 			newfname = request.REQUEST.get("new_fname")
-			newlname = request.REQUEST.get("new_lname")			
+			newlname = request.REQUEST.get("new_lname")
 			if newpoints != "":
 				points_student.points = newpoints
 				points_student.reset()
 				points_student.save()
 			if newfname != "":
 				points_user.first_name = newfname
-				points_user.save()				
+				points_user.save()
 				points_student.save()
 			if newlname != "":
 				points_user.last_name = newlname
-				points_user.save()				
+				points_user.save()
 				points_student.save()
 		return HttpResponseRedirect("/teacher/home")
 
@@ -651,7 +651,7 @@ def TeacherHome(request):
 	if(request.GET.get("teamcreate")):
 		#Team: mapped under classroom
 			#Has: members(MTM Students), teacher(str username), points, captain_username
-		new_name = request.REQUEST.get("team_name")		
+		new_name = request.REQUEST.get("team_name")
 		if new_name != "":
 			if classroom.teams.filter(name=new_name).exists():
 				context["TeamError"] = "This team name is taken"
@@ -662,7 +662,7 @@ def TeacherHome(request):
 				classroom.teams.add(new_team)
 				classroom.save()
 		return HttpResponseRedirect("/teacher/home")
-	
+
 	#CREATING CONTEXT FOR TEAMS
 
 	def TeamContext():
@@ -709,7 +709,7 @@ def TeacherHome(request):
 #								team_student_names = team_student_names + ", " + name
 								team_student_names.append(member_row)
 			if i.members.count() == 1:
-				if students[0].captain == False:					
+				if students[0].captain == False:
 					team_student_names = [[students[0].user.first_name + " " + students[0].user.last_name, students[0].user.username]]
 #					team_student_names = students[0].user.first_name + " " + students[0].user.last_name
 				if students[0].captain == True:
@@ -781,7 +781,7 @@ def TeacherHome(request):
 				student_info.append(x.user.first_name + " " + x.user.last_name) #0 is full name
 				student_info.append(x.user.username) #1 is username
 				student_info.append(x.points) #2 is points
-				student_info.append(x.captain) #3 is captain status 
+				student_info.append(x.captain) #3 is captain status
 				team_student_list.append(student_info)
 			unassigned_students = []
 			for x in class_students:
@@ -803,9 +803,13 @@ def TeacherHome(request):
 	#This is in the modal box to add a team member
 	if(request.GET.get("edit_team_add")):
 		member_id = request.REQUEST.get("selectteammember")
+
 		add_user = User.objects.get(username=member_id)
 		add_student = Student.objects.get(user=add_user)
-		add_to_team = teams.get(name=teacher.curr_team)
+		
+		team_name = request.REQUEST.get("selectteam")
+
+		add_to_team = teams.get(name=team_name)
 		add_to_team.members.add(add_student)
 		add_to_team.points = add_to_team.points + add_student.points
 		add_to_team.dollars = add_to_team.dollars + add_student.dollars
@@ -813,11 +817,17 @@ def TeacherHome(request):
 		add_to_team.save()
 		return HttpResponseRedirect("/teacher/home")
 
-
+	if(request.GET.get("change_name")):
+		team_to_change_name = request.REQUEST.get("selectteam")
+		team_to_change = Team.objects.get(name=team_to_change_name)
+		new_name = request.REQUEST.get("new_team_name")
+		team_to_change.name = new_name
+		team_to_change.save()
+		return HttpResponseRedirect("/teacher/home")
 
 	if(request.GET.get("assign_captain")):
 		member_id = request.REQUEST.get("selectmember")
-		captain_user = User.objects.get(username=member_id)		
+		captain_user = User.objects.get(username=member_id)
 		captain_student = Student.objects.get(user=captain_user)
 		captain_team = captain_student.team_set.all()[0]
 		for i in captain_team.members.all():
@@ -831,16 +841,16 @@ def TeacherHome(request):
 
 	if(request.GET.get("remove_from_team")):
 		member_id = request.REQUEST.get("selectmember")
-		member_user = User.objects.get(username=member_id)		
+		member_user = User.objects.get(username=member_id)
 		remove_student = Student.objects.get(user=member_user)
 		remove_from_team = remove_student.team_set.all()[0]
-		
+
 		if remove_from_team.captain_username == remove_student.user.username:
 			remove_from_team.captain_username = ""
 			remove_from_team.save()
 			remove_student.captain = False
 			remove_student.save()
-		
+
 		remove_from_team.members.remove(remove_student)
 		remove_from_team.save()
 		return HttpResponseRedirect("/teacher/home")
@@ -855,7 +865,7 @@ def GoodDeeds(request):
 	if request.GET.get("logout"):
 		logout(request)
 		return HttpResponseRedirect('/login')
-	
+
 	user = request.user
 	ref_dict = teacher_info(user)
 	teacher = ref_dict["teacher"] # teacher = Teacher.objects.get(user=user)
@@ -868,7 +878,7 @@ def GoodDeeds(request):
 	PRs = ref_dict["PRs"] # PRs = classroom.PRs.all()
 	SRs = ref_dict["SRs"] # SRs = classroom.SRs.all()
 	teams = ref_dict["teams"] # teams = classroom.teams.all()
-	
+
 	context = {}
 	teacher_classroom_names = []
 	for i in teacher_classes:
@@ -956,11 +966,11 @@ def Rewards(request):
 	PRs = ref_dict["PRs"] # PRs = classroom.PRs.all()
 	SRs = ref_dict["SRs"] # SRs = classroom.SRs.all()
 	teams = ref_dict["teams"] # teams = classroom.teams.all()
-	
+
 	if request.GET.get("logout"):
 		logout(request)
 		return HttpResponseRedirect('/login')
-	
+
 	context = {}
 	teacher_classroom_names = []
 	for i in teacher_classes:
@@ -982,33 +992,33 @@ def Rewards(request):
 	else:
 		context["Classes"] = ClassroomContext(user, teacher.curr_class)
 	Rewards_Context = []
-	
+
 	for i in rewards:
 		row = []
 		row.append(i.name) #0 is name
 		row.append(i.cost) #1 is cost
 		row.append(i.pk) #2 is PK ID
 		Rewards_Context.append(row)
-	
+
 	context["RewardsList"] = Rewards_Context
 
-	if(request.POST.get("editrewards")):		
-		check_list = request.POST.getlist("R")	
+	if(request.POST.get("editrewards")):
+		check_list = request.POST.getlist("R")
 		for i in check_list:
 			to_edit = Reward.objects.get(pk=i)
-			to_edit.name = request.REQUEST.get("nreward")			
+			to_edit.name = request.REQUEST.get("nreward")
 			to_edit.cost = request.REQUEST.get("npoint")
 			to_edit.save()
 			return HttpResponseRedirect("/teacher/rewards")
 
-	
+
 	if(request.POST.get("delete")):
 		del_list = request.POST.getlist("R")
 		for i in del_list:
 			to_delete = Reward.objects.get(pk=i)
 			to_delete.delete()
 			return HttpResponseRedirect("/teacher/rewards")
-	
+
 	if(request.POST.get("addR")):
 		name = request.REQUEST.get("Name")
 		cost = request.REQUEST.get("Cost")
@@ -1020,7 +1030,7 @@ def Rewards(request):
 			classroom.Rewards.add(new_reward)
 			classroom.save()
 			return HttpResponseRedirect("/teacher/rewards")
-	
+
 	if(request.POST.get("clear")):
 		rewards.delete()
 		context["RewardsList"] = []
@@ -1043,7 +1053,7 @@ def Requests(request):
 	PRs = ref_dict["PRs"] # PRs = classroom.PRs.all()
 	SRs = ref_dict["SRs"] # SRs = classroom.SRs.all()
 	teams = ref_dict["teams"] # teams = classroom.teams.all()
-	
+
 	if request.GET.get("logout"):
 		logout(request)
 		return HttpResponseRedirect('/login')
@@ -1073,7 +1083,7 @@ def Requests(request):
 	for i in requests:
 		identifiers.append(i.time_string)
 	keys = sorted(identifiers, reverse=True)
-	
+
 	requests_context = []
 	#we need student name, username, team of requester, points requested, and time created (for sorting)
 
@@ -1092,7 +1102,7 @@ def Requests(request):
 		row.append(dollars) #2 is points
 		row.append(deed_name) #3 is deed name
 		row.append(accept) #4 is accept button code
-		row.append(deny) #5 is deny button code	
+		row.append(deny) #5 is deny button code
 		if i.team_set.all():
 			team = i.team_set.all()[0]
 			row.append(team.name) #6 is team name
@@ -1134,7 +1144,7 @@ def SpendRequests(request):
 	PRs = ref_dict["PRs"] # PRs = classroom.PRs.all()
 	SRs = ref_dict["SRs"] # SRs = classroom.SRs.all()
 	teams = ref_dict["teams"] # teams = classroom.teams.all()
-	
+
 	if request.GET.get("logout"):
 		logout(request)
 		return HttpResponseRedirect('/login')
@@ -1165,21 +1175,21 @@ def SpendRequests(request):
 		#Need reward name, team name, student requester and username
 		row = []
 		#SRs need to be mapped under a team
-		
-		
+
+
 		btn_code = "S" + str(i.pk)
 
 		row.append(i.rewardname) # 0 is reward name
 		row.append("blegh") # 1 is student username
 		row.append(btn_code) # 2 is button code
-		
+
 		if i.team_set.all():
 			reward_type = "Team"
 			row.append(reward_type) # 3 is reward type
 			team = i.team_set.all()[0]
 			team_name = team.name
 			row.append(team_name) # 4 is team name if there is one
-		if i.student_set.all():			
+		if i.student_set.all():
 			student = i.student_set.all()[0]
 			student_name = student.user.first_name + " " + student.user.last_name
 			student_username = student.user.username
@@ -1194,7 +1204,7 @@ def SpendRequests(request):
 		if request.POST.get(btn_code):
 			i.delete()
 			return HttpResponseRedirect('/teacher/spend-requests')
-	
+
 	context["TableRows"] = spend_inbox
 
 	def check_buttons():
@@ -1213,7 +1223,7 @@ def SpendRequests(request):
 		spend_inbox = []
 		context["TableRows"] = spend_inbox
 		return render(request, "TeacherSpend.html", context)
-	
+
 	return render(request, "TeacherSpend.html", context)
 
 @user_passes_test(teacher_check)
@@ -1265,12 +1275,12 @@ def TeacherSettings(request):
 		check_1 = (user.check_password(p_1))
 		check_2 = (user.check_password(p_2))
 		new_username = request.POST.get("newusername")
-		print(new_username)			
+		print(new_username)
 		if check_1 and check_2:
-			print("test")		
+			print("test")
 			if new_username != "":
 				user.username = new_username
-				user.save()			
+				user.save()
 	if request.POST.get("passwordchange"):
 		p_1 = request.POST.get("password")
 		p_2 = request.POST.get("password_2")
