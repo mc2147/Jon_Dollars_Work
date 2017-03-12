@@ -7,11 +7,10 @@ from .models import GoodDeed,  SpendRequest, Reward
 from django.template import Context, Template
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 #For each student page, we need: teacher, classroom, team
 	#For inbox pages, we need requests and spendrequests
-
 def PtD(num_points):
 	output = []
 	remainder = num_points % 10
@@ -46,6 +45,8 @@ def StudentInfo(user):
 
 def teacher_check(user):
 	return Teacher.objects.filter(user=user).exists()
+def student_check(user):
+	return Student.objects.filter(user=user).exists()
 
 def Login(request):
 	if User.objects.filter(username = "Jon").exists() == False:
@@ -54,8 +55,9 @@ def Login(request):
 		new_teacher = Teacher(user = new_user)
 		new_teacher.save()
 
-	context = {}
-	reg_user = request.user.username
+#	user = request.user
+#	username = request.user.username
+
 	if(request.POST.get("s-login")):
 		u_name = request.REQUEST.get("username")
 		p_word = request.REQUEST.get("password")
@@ -65,13 +67,18 @@ def Login(request):
 			user.save()		
 		auth = authenticate(username=u_name, password=p_word)
 		if auth:
-			user.save()			
-			if teacher_check(user) == False:
-				login(request, auth)
-				print("STUDENT LOGIN SUCCESS")
-				print(request.user.username)
-				return HttpResponseRedirect('/student/home')
-
+			user.save()
+			login(request, auth)
+			print("STUDENT LOGIN SUCCESS")
+			print(request.user.username)
+			username = request.user.username
+			user = User.objects.get(username=username)
+			return HttpResponseRedirect('/student/home')
+			# if student_check(user) == True:
+			# 	login(request, auth)
+			# 	print("STUDENT LOGIN SUCCESS")
+			# 	print(request.user.username)
+			# 	return HttpResponseRedirect('/student/home')
 	if (request.POST.get("t-login")):
 		u_name = request.REQUEST.get("username")
 		p_word = request.REQUEST.get("password")
@@ -100,11 +107,14 @@ def Login(request):
 	# clasroom = student.classroom_set.all()[0]
 	# teacher = student.teacher_set.all()[0]
 
-@login_required(login_url='http://127.0.0.1:8000/login')
+#@login_required(login_url='http://127.0.0.1:8000/login')
+@user_passes_test(student_check)
 def StudentHome(request):
-	user = request.user
+	username = request.user.username
+	user = User.objects.get(username=username)
+
 	ref_dict = StudentInfo(user)
-	
+	print(Student.objects.filter(user=user).exists())
 	student = ref_dict["student"]
 	classroom = ref_dict["classroom"]
 	teacher = ref_dict["teacher"]
@@ -113,7 +123,7 @@ def StudentHome(request):
 
 	if request.GET.get("logout"):
 		logout(request)
-		return Login(request)
+		return HttpResponseRedirect('/login')
 
 	points = student.points
 	dollars = student.dollars
@@ -155,7 +165,7 @@ def StudentHome(request):
 			member_display = member_display + (i.user.first_name + " " + i.user.last_name + " (" + str(i.dollars) + ", " + str(i.points) + ") ")
 			row.append(i.user.first_name + " " + i.user.last_name) #0 is name
 			row.append(i.points) #1 is points
-			context["Members"].append(row)
+#			context["Members"].append(row)
 		team_sum = DtP(team.dollars, team.points)
 		team_raw_avg = team_sum/team.members.count()
 		team_avg = PtD(team_raw_avg)
@@ -165,7 +175,6 @@ def StudentHome(request):
 		context["TeamAverage"] = team_avg_context
 		context["TeamMemberDisplay"] = member_display_list
 		context["TeamName"] = team.name
-#	context["TeamHS"] = team_high_score
 		context["TeamLeadingScorers"] = team_lead_display
 	
 	else:
@@ -201,8 +210,10 @@ def StudentHome(request):
 		context["Class_Teams"].append(row)
 	return render(request, "StudentHome.html", context)
 
+@user_passes_test(student_check)
 def StudentTeam(request):
-	user = request.user
+	username = request.user.username
+	user = User.objects.get(username=username)	
 	ref_dict = StudentInfo(user)
 	
 	student = ref_dict["student"]
@@ -213,7 +224,7 @@ def StudentTeam(request):
 
 	if request.GET.get("logout"):
 		logout(request)
-		return Login(request)
+		return HttpResponseRedirect('/login')
 	# student = Student.objects.get(user=user)
 	# team = student.team_set.all()[0]
 	# clasroom = student.classroom_set.all()[0]
@@ -241,7 +252,7 @@ def StudentTeam(request):
 		team_lead_display = ""
 		team_high_score = team_leads[1]
 		for i in team_leads[0]:
-			if len(team_leads[0]) > 1 and i != team_leads[len(team_leads - 1)]:
+			if len(team_leads[0]) > 1 and i != team_leads[len(team_leads) - 1]:
 				team_lead_display = team_lead_display + i.user.first_name + " " + i.user.last_name + " (" + str(i.points) + " points)" + ", "
 			else:
 				team_lead_display = team_lead_display + i.user.first_name + " " + i.user.last_name + " (" + str(i.points) + " points)"
@@ -279,7 +290,7 @@ def StudentTeam(request):
 				context["Member_Half"].append(first + ", " + second)
 		else:
 			for i in range((len(team.members.all()) + 1)/2):
-				if i == len(team.members.all() + 1)/2 - 1:
+				if i == (len(team.members.all()) + 1)/2 - 1:
 					context["Member_Half"].append(text_rows[i*2])
 				else:
 					first = text_rows[i*2]
@@ -321,14 +332,14 @@ def StudentTeam(request):
 		else:
 			context["Class_Teams_2"].append(row)
 
-
 	return render(request, "StudentTeam.html", context)
 
 
-@login_required(login_url='http://127.0.0.1:8000/login')
 #Show rewards (linked to classroom), team points(reverse student), individual points + dollars (linked to student)
+@user_passes_test(student_check)
 def StudentShop(request):
-	user = request.user
+	username = request.user.username
+	user = User.objects.get(username=username)	
 	ref_dict = StudentInfo(user)
 	username = user.username
 	student = ref_dict["student"]
@@ -344,7 +355,7 @@ def StudentShop(request):
 	#GETTING CLASS AVERAGE
 	if request.GET.get("logout"):
 		logout(request)
-		return Login(request)
+		return HttpResponseRedirect('/login')
 	
 	available_rewards = classroom.Rewards.all()
 
@@ -412,7 +423,7 @@ def StudentShop(request):
 	print(context["RewardsList2"])			
 
 	context["PointsAvailable"] = student.points
-	context["DollarsAvailable"] = student.dollars
+	context["DollarsAvailable"] = student.dollars 
 	context["ShopTitle"] = "Shop"
 
 	for i in available_rewards:
@@ -494,13 +505,14 @@ def StudentShop(request):
 				CostSplit(i.cost, team_members)
 				return HttpResponseRedirect('/student/shop')
 	context["PointsAvailable"] = student.points
-	context["DollarsAvailable"] = (student.points - (student.points % 10))/10
+#	context["DollarsAvailable"] = (student.points - (student.points % 10))/10
 	return render(request, "StudentShop.html", context)
 
 
-@login_required(login_url='http://127.0.0.1:8000/login')
+@user_passes_test(student_check)
 def StudentInventory(request):
-	user = request.user
+	username = request.user.username
+	user = User.objects.get(username=username)	
 	ref_dict = StudentInfo(user)
 	student = ref_dict["student"]
 	classroom = ref_dict["classroom"]
@@ -510,7 +522,7 @@ def StudentInventory(request):
 	rewards = student.spendrequests.all()
 	if request.GET.get("logout"):
 		logout(request)
-		return Login(request)
+		return HttpResponseRedirect('/login')
 
 	context = {}
 	context["List"] = []
@@ -544,9 +556,10 @@ def StudentInventory(request):
 	return render(request, "StudentInventory.html", context)
 
 
-@login_required(login_url='http://127.0.0.1:8000/login')
+@user_passes_test(student_check)
 def StudentPointRequest(request):
-	user = request.user
+	username = request.user.username
+	user = User.objects.get(username=username)	
 	ref_dict = StudentInfo(user)
 	
 	student = ref_dict["student"]
@@ -555,9 +568,11 @@ def StudentPointRequest(request):
 	team = ref_dict["team"]
 	has_team = ref_dict["has_team"]
 	studentpoints = student.points
+
 	if request.GET.get("logout"):
 		logout(request)
-		return Login(request)
+		return HttpResponseRedirect('/login')
+
 	GDs = classroom.GDs.all()
 
 	dollars = student.dollars
@@ -656,22 +671,22 @@ def StudentPointRequest(request):
 	return render(request, "StudentPointRequest.html", context)
 
 
-@login_required(login_url='http://127.0.0.1:8000/login')
+@user_passes_test(student_check)
 def StudentSettings(request):
-	user = request.user
+	username = request.user.username
+	user = User.objects.get(username=username)	
 	ref_dict = StudentInfo(user)
 	
 	student = ref_dict["student"]
 	classroom = ref_dict["classroom"]
 	teacher = ref_dict["teacher"]
 	team = ref_dict["team"]
-	user = request.user
+
 
 	if request.GET.get("logout"):
 		logout(request)
-		return Login(request)
-	
-	username=request.user.username
+		return HttpResponseRedirect('/login')
+
 	pword = user.password
 	if request.GET.get("usernamechange"):
 		p_1 = request.REQUEST.get("password")

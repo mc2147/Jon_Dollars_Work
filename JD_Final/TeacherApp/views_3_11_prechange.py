@@ -606,7 +606,7 @@ def TeacherHome(request):
 				point_username = i
 				point_user = User.objects.get(username=point_username)
 				point_student = Student.objects.get(user=point_user)
-				point_student.dollars = point_student.dollars - int(dollar_change)
+				point_student.dollars = point_student.dollars + int(dollar_change)
 				point_student.update()
 				point_student.save()
 			return HttpResponseRedirect("/teacher/home")
@@ -618,7 +618,7 @@ def TeacherHome(request):
 		points_user = User.objects.get(username=edit_username)
 		points_student = Student.objects.get(user = points_user)
 		if(edit_username):
-			newpoints = request.REQUEST.get("cust_val")
+			newpoints = int(request.REQUEST.get("cust_val"))
 			newfname = request.REQUEST.get("new_fname")
 			newlname = request.REQUEST.get("new_lname")			
 			if newpoints != "":
@@ -674,73 +674,53 @@ def TeacherHome(request):
 #			team_student_names = ""
 			team_student_names = []
 			students = i.members.all()
-			team_captain_list = []
 			team_captain = ""
-			team_captain_username = ""
 			captain_username = i.captain_username
 			if i.captain_username != "":
 				if User.objects.filter(username=captain_username).exists():
 					captain = User.objects.get(username=captain_username)
 					team_captain = captain.first_name + " " + captain.last_name
-					team_captain_username = captain.username
-					team_captain_list.append([team_captain, team_captain_username])
 					for x in students:
-						member_row = []
 						name = x.user.first_name + " " + x.user.last_name
-						member_row.append(name) #0 is name
-						username = x.user.username
-						member_row.append(username) # 1 is username
 						if x.captain == False:
 #							team_student_names = team_student_names + ", " + name
-							team_student_names.append(member_row)
+							team_student_names.append(name)
 			else:
 				if i.members.count() > 1:
 					for x in students:
 						if x.captain == False:
-							member_row = []
 							name = x.user.first_name + " " + x.user.last_name
-							member_row.append(name)
-							username = x.user.username
-							member_row.append(username)
 							if x == students[0]:
 #								team_student_names = name
-								team_student_names = [member_row]
+								team_student_names = [name]
 							else:
 #								team_student_names = team_student_names + ", " + name
-								team_student_names.append(member_row)
+								team_student_names = team_student_names.append(name)
 			if i.members.count() == 1:
-				if students[0].captain == False:					
-					team_student_names = [[students[0].user.first_name + " " + students[0].user.last_name, students[0].user.username]]
+				if students[0].captain == False:
+					team_student_names = [students[0].user.first_name + " " + students[0].user.last_name]
 #					team_student_names = students[0].user.first_name + " " + students[0].user.last_name
 				if students[0].captain == True:
 					team_captain = students[0].user.first_name + " " + students[0].user.last_name + " (Cpt.)"
-					team_captain_username = students[0].user.username
-					team_captain_list.append([team_captain, team_captain_username])
-
 			row.append(team_student_names) #2 is team members
-			row.append(team_captain_list) #3 is team captain
+			row.append([team_captain]) #3 is team captain
 			row.append(i.dollars) # 4 is dollars
 			row.append(i.points) #5 is team points
 			output.append(row)
 		return output
-
 	context["Teams"] = TeamContext()
-
 	if(request.GET.get("teamadd")):
 		team_select = request.REQUEST.get("selectteam")
 		team_add = Team.objects.get(name=team_select)
-
-		student_list = request.GET.getlist("select")
-		for i in student_list:
-			add_username = i
+		add_username = request.REQUEST.get("select")
 		#team_add.add_student(add_username)
-			user = User.objects.get(username=add_username)
-			student = Student.objects.get(user=user)
-			team_add.members.add(student)
-			team_add.points = team_add.points + student.points
-			team_add.dollars = team_add.dollars + student.dollars
-			team_add.update()
-			team_add.save()
+		user = User.objects.get(username=add_username)
+		student = Student.objects.get(user=user)
+		team_add.members.add(student)
+		team_add.points = team_add.points + student.points
+		team_add.dollars = team_add.dollars + student.dollars
+		team_add.update()
+		team_add.save()
 		print(team_add.members.all())
 		return HttpResponseRedirect("/teacher/home")
 
@@ -757,18 +737,7 @@ def TeacherHome(request):
 		return HttpResponseRedirect("/teacher/home")
 
 	class_students = classroom.students.all()
-	unassigned_students = []
-	for x in class_students:
-		student_info = []
-		if not x.team_set.all():
-			student_info.append(x.user.first_name + " " + x.user.last_name) #0 is full name
-			student_info.append(x.user.username) #1 is username
-			student_info.append(x.points) #2 is points
-			unassigned_students.append(student_info)
-		if unassigned_students == []:
-			context["NoUnassigned"] = ["All students are already on teams"]
-		else:
-			context["Unassigned"] = unassigned_students
+	
 
 
 	if(request.GET.get("edit_team")):
@@ -815,8 +784,8 @@ def TeacherHome(request):
 
 
 
-	if(request.GET.get("assign_captain")):
-		member_id = request.REQUEST.get("selectmember")
+	if(request.GET.get("team_captain")):
+		member_id = request.REQUEST.get("select_from_members")
 		captain_user = User.objects.get(username=member_id)		
 		captain_student = Student.objects.get(user=captain_user)
 		captain_team = captain_student.team_set.all()[0]
@@ -829,24 +798,17 @@ def TeacherHome(request):
 		captain_team.save()
 		return HttpResponseRedirect("/teacher/home")
 
-	if(request.GET.get("remove_from_team")):
-		member_id = request.REQUEST.get("selectmember")
+	if(request.GET.get("team_remove")):
+		member_id = request.REQUEST.get("select_from_members")
 		member_user = User.objects.get(username=member_id)		
 		remove_student = Student.objects.get(user=member_user)
 		remove_from_team = remove_student.team_set.all()[0]
-		
-		if remove_from_team.captain_username == remove_student.user.username:
-			remove_from_team.captain_username = ""
-			remove_from_team.save()
-			remove_student.captain = False
-			remove_student.save()
-		
 		remove_from_team.members.remove(remove_student)
 		remove_from_team.save()
 		return HttpResponseRedirect("/teacher/home")
 
-	# if(request.GET.get("close")):
-	# 	return HttpResponseRedirect("/teacher/home")
+	if(request.GET.get("close")):
+		return HttpResponseRedirect("/teacher/home")
 
 	return render(request, "TeacherHome.html", context)
 

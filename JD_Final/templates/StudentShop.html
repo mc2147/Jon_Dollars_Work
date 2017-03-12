@@ -267,9 +267,58 @@
 		</div>
 
 		<div class = "col-sm-4">
-			{% for reward2 in RewardsList2 %}
-            <h4>{{reward2.0.2}} (Cost: {{reward2.0.3}} Points)</h4> <button type="submit" class="btn" value="Buy" name="buy{{reward2.2}}"></button>
-			{% endfor %}
+
+      {% for reward2 in RewardsList2 %}        
+            <h4>{{reward2.0.2}} (Cost: {{reward2.0.3}} {{reward2.0.6}})</h4>
+            {% for x in reward2 %}             
+            <button type="button" name="modal" class="btn {{x.5}}" data-toggle="modal" data-target="#{{x.0}}{{x.4}}" >{{x.1}}</button>
+            <div class="modal fade" id="{{x.4}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Purchase</h4>
+                </div>            
+                <div class="modal-body">
+                    <p>You are about to buy:</p>
+                    <p>{{reward2.0.2}} ({{reward2.0.3}} {{reward2.0.6}})</p>
+                    <p class="debug-url"></p>
+                </div>
+                
+                <div class="modal-footer">
+                <p style="float:left; margin-left:10px;">Your remaining dollars: {{DollarsAvailable}} </p> 
+                  <button type="submit" class="btn btn-success" value="Buy" name="buy{{reward.0.4}}">Confirm</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+          </div>
+        </div>
+
+            <div class="modal fade" id="team{{x.4}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Team Purchase</h4>
+                </div>            
+                <div class="modal-body">
+                    <p>You are about to use <b>team dollars</b> to buy:</p>
+                    <p>{{reward2.0.2}} ({{reward2.0.3}} {{reward2.0.6}})</p>
+                    <p class="debug-url"></p>
+                </div>
+                
+                <div class="modal-footer">
+                <div class= "row">
+                  <p style="float:left; margin-left:10px;">Team dollars remaining: {{TeamDollars}} </p> 
+                  <button  type="submit" class="btn btn-success" value="Buy" name="teambuy{{reward.1.4}}">Confirm</button>
+                    <button type="button" style="margin-right:10px;" class="btn btn-default" data-dismiss="modal">Cancel</button>                    
+                   </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+            {% endfor %}
 		</div>
 
 		<!-- {% for reward in RewardsList1 %} -->

@@ -179,8 +179,7 @@
         <form method="GET"> 
         {% for student in Students %}
         <p style="margin:0; padding:0; line-height:20px;">
-        <input type="radio" value="{{student.0}}"" name="select" id="{{student.0}}" style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> {{student.1}} / {{student.0}}</input>
-        </p>    
+        <input type="checkbox" value="{{student.0}}"" name="select" id="{{student.0}}" style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> {{student.1}} / {{student.0}} </p>    
         {% endfor %}
         <br>
         <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary" name="modal">Edit</button> 
@@ -244,7 +243,7 @@
               
               <div class="modal-body" style="height:300px;">
                 <div class="col-sm-6">
-                Student information
+                Student information 
                 <p>Student Name </p>
                 <p>Student Username </p>
                 <p>Student Points</p>
@@ -397,8 +396,8 @@
 
 <!--    
         <input  name="edit_team" type="submit" class="btn btn-primary" value="Edit Team"></input> -->
-        <form method="GET">
           <input type="submit" class="btn btn-primary" value="Edit Team" name="edit_team"></input>
+        <form method="GET">
 
 <div class="modal fade" id="edit_team" role="dialog">
         <div class="modal-dialog modal-lg"> 
@@ -451,6 +450,7 @@
         </div>
         </div>
         </form>
+        
         <script>
         function team_edit_modal() { 
           $("#edit_team").modal()

@@ -120,7 +120,7 @@
 
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Home</title>
+    <title>Justified Nav Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
@@ -253,11 +253,16 @@
         			</div>
         			
         			<div class="modal-body" style="height:300px;">
-        				
+        				<div class="col-sm-6">
+        				Student information
+        				<p>Student Name </p>
+        				<p>Student Username </p>
+        				<p>Student Points</p>
+        				</div>
 
-        				<div class="col-sm-12">
+        				<div class="col-sm-3">
         					<div class="dropdown">
-  							<label for="sel1">Select Team to Add Student To</label>
+  							<label for="sel1">Select Team</label>
   							<select class="form-control"  name="selectteam" id="sel1">
   							{% for team in Teams %}
   							<option name={{team.1}}>{{team.0}}</option>
@@ -267,8 +272,7 @@
 						  </div>
 
         				<div class="col-sm-3">
-                  <br> 
-        					<input class="btn btn-primary" name="teamadd" type="submit" value ="Add Student(s) to Team">
+        					<input class="btn btn-primary" name="teamadd" type="submit" value ="Add Student to Team">
         				</div>
         			</div>
 
@@ -286,16 +290,16 @@
         {% for team in Teams %}
           <h5 style="font-size:18px;"><input type="radio" value="{{team.0}}" name="selectteam" id='{{team.0}}' style=" margin:0; padding:0; line-height:20px; transform: scale(1)"><b>  {{team.0}}</b> ({{team.4}} dollars, {{team.5}} points):</input></h5>
           {%for captain in team.3 %}
-          <input type="radio" value="{{captain.1}}"" name="selectmember" id="{{captain.1}}">
-          <b>{{captain.0}}</b>
+          <input type="radio" value="{{captain}}"" name="selectmember" id="{{captain}}">
+          <b>{{captain}}</b>
           {% endfor %}
           {% for member in team.2 %} 
-            <input type="radio" value="{{member.1}}"" name="selectmember" id="{{member.1}}">    
-           {{member.0}} 
+            <input type="radio" value="{{member}}"" name="selectmember" id="{{member}}">    
+           {{member}} 
            {% endfor %}
            <br>
             <input style="margin-top:10px;" type="submit" class="btn btn-success btn-sm" value="Promote to Captain" name="assign_captain"></input>   
-            <input style="margin-top:10px;" type="submit" class="btn btn-danger btn-sm" value="Remove From Team" name="remove_from_team"></input>   
+            <input style="margin-top:10px;" type="submit" class="btn btn-danger btn-sm" value="Remove From Team" name="assign_captain"></input>   
 
           {% endfor %}
           <!-- </p> -->
